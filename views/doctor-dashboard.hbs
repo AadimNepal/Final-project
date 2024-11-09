@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Dashboard</title>
+</head>
+<body>
+    <h1>Doctor Dashboard</h1>
+    <form action="/doctor-dashboard/add-encounter" method="POST">
+        <label>Select Patient:</label>
+        <select name="patientId" required>
+            {{#each patients}}
+            <option value="{{this._id}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+        <label>Encounter Description:</label>
+        <textarea name="description" required></textarea>
+        <button type="submit">Add Encounter</button>
+    </form>
+</body>
+</html>

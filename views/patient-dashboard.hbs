@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Dashboard</title>
+</head>
+<body>
+    <h1>Patient Dashboard</h1>
+    <ul>
+        {{#each encounters}}
+        <li>
+            <strong>Date:</strong> {{this.date}}<br>
+            <strong>Doctor:</strong> {{this.doctorId.name}}<br>
+            <strong>Description:</strong> {{this.description}}
+        </li>
+        <hr>
+        {{/each}}
+    </ul>
+</body>
+</html>
