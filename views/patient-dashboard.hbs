@@ -2,18 +2,22 @@
 <html>
 <head>
     <title>Patient Dashboard</title>
+    <!-- Tailwind CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Patient Dashboard</h1>
-    <ul>
-        {{#each encounters}}
-        <li>
-            <strong>Date:</strong> {{this.date}}<br>
-            <strong>Doctor:</strong> {{this.doctorId.name}}<br>
-            <strong>Description:</strong> {{this.description}}
-        </li>
-        <hr>
-        {{/each}}
-    </ul>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl font-bold text-blue-600 mb-6 text-center">Patient Dashboard</h1>
+        
+        <ul class="space-y-4">
+            {{#each encounters}}
+            <li class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-gray-500 text-sm mb-2"><strong>Date:</strong> {{this.date}}</p>
+                <p class="text-gray-700 font-semibold"><strong>Doctor:</strong> {{this.doctorId.name}}</p>
+                <p class="text-gray-600 mt-2"><strong>Description:</strong> {{this.description}}</p>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
 </body>
 </html>
