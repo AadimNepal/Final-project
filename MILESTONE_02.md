@@ -31,10 +31,12 @@ http://linserv1.cims.nyu.edu:22229
 ---
 - **Login and Registration**: [http://linserv1.cims.nyu.edu:22229](http://linserv1.cims.nyu.edu:22229)
 - **Doctor Dashboard (Add Encounter Info)**: [http://linserv1.cims.nyu.edu:22229/doctor-dashboard](http://linserv1.cims.nyu.edu:22229/doctor-dashboard)
+- In order to view the doctor dashboard, please log in with email: awahan@nyu.edu and password: awahan. Sure, you can create your own too. The above link for doctor-dashboard might now show if you directly click on it so just a caution.
 
 ### URL for Form Result
 ---
 - **Patient Dashboard (View Encounter Logs)**: [http://linserv1.cims.nyu.edu:22229/patient-dashboard](http://linserv1.cims.nyu.edu:22229/patient-dashboard)
+- If the above link does not show the dashboard, please log in with email: aadim@gmail.com and password: aadim. Sure, you can create your own too.
 
 ### URL to GitHub that Shows Line of Code Where Research Topic(s) are Used / Implemented
 --- 
