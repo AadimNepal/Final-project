@@ -5,28 +5,45 @@ Repository Link
 ---
 https://github.com/AadimNepal/Final-project
 
-Special Instructions for Using Form and / or Login
+### Special Instructions for Using Form and / or Login
 ---
-- **Authentication Required**: Both doctors and patients need to register and log in to access their respective dashboards.
-- **Doctor Registration**: Doctors must use an `@nyu.edu` email to register successfully.
-- **Email Verification**: Upon registration, a verification code will be sent via email to confirm the account. Ensure that SMTP credentials are set up in the `.env` file for this feature to work.
-- **PM2 Setup**: The application is configured to run as a daemon using PM2, so it remains active even when logged out of the server.
+- **Authentication Required**: Both doctors and patients must register and log in to access their respective dashboards.
+  
+- **Doctor Registration**: Doctors must register with an `@nyu.edu` email. Upon successful login, they will gain access to the **Doctor Dashboard**.
+
+- **Patient Registration**: Patients can register with any email. After logging in, patients are directed to the **Patient Dashboard**, where they can view encounter logs submitted by doctors.
+
+- **Doctor Dashboard**: Doctors can select a registered patient from a dropdown list and complete a form to submit an encounter log for that patient. Once the form is submitted, the information is saved to the patient’s account.
+
+- **Patient Dashboard**: Patients can view the details submitted by doctors, including encounter dates, descriptions, and the doctor’s name.
+
+- **Example Accounts**:
+    - **Doctor**: `awahan@nyu.edu` with password `awahan`
+    - **Patient**: `aadim@gmail.com` with password `aadim`
+
+You may also create your own test accounts to explore the functionalities of both the doctor and patient dashboards.
 
 URL for Deployed Site 
 ---
 http://linserv1.cims.nyu.edu:22229
 
-URL for Form
+### URL for Form
 ---
-http://linserv1.cims.nyu.edu:22229/register
+- **Login and Registration**: [http://linserv1.cims.nyu.edu:22229](http://linserv1.cims.nyu.edu:22229)
+- **Doctor Dashboard (Add Encounter Info)**: [http://linserv1.cims.nyu.edu:22229/doctor-dashboard](http://linserv1.cims.nyu.edu:22229/doctor-dashboard)
 
-URL for Form Result
+### URL for Form Result
 ---
-http://linserv1.cims.nyu.edu:22229/login
+- **Patient Dashboard (View Encounter Logs)**: [http://linserv1.cims.nyu.edu:22229/patient-dashboard](http://linserv1.cims.nyu.edu:22229/patient-dashboard)
 
-URL to GitHub that Shows Line of Code Where Research Topic(s) are Used / Implemented
+### URL to GitHub that Shows Line of Code Where Research Topic(s) are Used / Implemented
 --- 
-(TODO: Add URL to specific lines in your GitHub repository where specific research topics or advanced features were implemented, if required by the assignment)
+I did research on Tailwind CSS, and all of my `.hbs` files integrate the Tailwind CSS CDN.
+
+- **Tailwind CSS in index.hbs**: [Link to index.hbs](https://github.com/AadimNepal/Final-project/blob/main/views/index.hbs#L6)
+- **Tailwind CSS in doctor-dashboard.hbs**: [Link to doctor-dashboard.hbs](https://github.com/AadimNepal/Final-project/blob/main/views/doctor-dashboard.hbs#L6)
+- **Tailwind CSS in patient-dashboard.hbs**: [Link to patient-dashboard.hbs](https://github.com/AadimNepal/Final-project/blob/main/views/patient-dashboard.hbs#L6)
+
 
 References 
 ---
