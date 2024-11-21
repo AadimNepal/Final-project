@@ -15,32 +15,41 @@ const isPatient = (req, res, next) => {
 router.use(isPatient);
 
 // Main patient dashboard - showing list of doctors
+// Main patient dashboard - showing list of doctors
 router.get('/', async (req, res) => {
     try {
         // Find all encounters for this patient
         const encounters = await Encounter.find({ 
             patientId: req.session.user._id 
-        }).populate('doctorId', 'name');
+        }).populate('doctorId');  // Populate the entire doctor document
+
+        console.log('Raw encounters:', encounters); // Debug to see what we're getting
 
         // Get unique doctors and count their encounters
-        const doctorStats = encounters.reduce((acc, encounter) => {
+        const doctorStats = {};
+        
+        for (const encounter of encounters) {
+            if (!encounter.doctorId) continue;
+            
             const doctorId = encounter.doctorId._id.toString();
-            if (!acc[doctorId]) {
-                acc[doctorId] = {
+            if (!doctorStats[doctorId]) {
+                // Get doctor details
+                const doctor = await User.findById(doctorId);
+                doctorStats[doctorId] = {
                     id: doctorId,
-                    name: encounter.doctorId.name,
+                    name: doctor.name,  // Get name directly from User collection
                     encounterCount: 0,
                     lastVisit: encounter.date
                 };
             }
-            acc[doctorId].encounterCount++;
-            if (new Date(encounter.date) > new Date(acc[doctorId].lastVisit)) {
-                acc[doctorId].lastVisit = encounter.date;
+            doctorStats[doctorId].encounterCount++;
+            if (new Date(encounter.date) > new Date(doctorStats[doctorId].lastVisit)) {
+                doctorStats[doctorId].lastVisit = encounter.date;
             }
-            return acc;
-        }, {});
+        }
 
         const doctors = Object.values(doctorStats);
+        console.log('Doctors data:', doctors);
 
         res.render('patient-dashboard', {
             doctors,
@@ -82,8 +91,6 @@ router.get('/encounter/:encounterId', async (req, res) => {
     try {
         const encounter = await Encounter.findById(req.params.encounterId)
             .populate('doctorId', 'name');
-
-        console.log('Found encounter:', encounter);
 
         if (!encounter || encounter.patientId.toString() !== req.session.user._id.toString()) {
             return res.status(404).send('Encounter not found');

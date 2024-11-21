@@ -109,8 +109,6 @@ router.post('/add-encounter', async (req, res) => {
             followUpInstructions: req.body.followUpInstructions
         });
 
-        console.log('Saving encounter:', encounter); // Debug log
-
         await encounter.save();
         res.redirect('/doctor-dashboard');
     } catch (err) {
