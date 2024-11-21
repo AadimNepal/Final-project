@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Encounter Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-4xl mx-auto">
+        <div class="mb-6">
+            <a href="/patient-dashboard/doctor/{{encounter.doctorId._id}}" class="text-blue-500 hover:text-blue-600">← Back to Encounters List</a>
+            <h1 class="text-3xl font-bold text-blue-600 mt-2">Encounter Details</h1>
+            <p class="text-gray-600">Visit with Dr. {{encounter.doctorId.name}} on {{formatDate encounter.date}}</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <!-- Encounter Header -->
+            <div class="bg-gray-50 p-4 border-b">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700">Visit Summary</h3>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-sm 
+                        {{#if (eq encounter.status 'completed')}}bg-green-100 text-green-800{{/if}}
+                        {{#if (eq encounter.status 'requires-follow-up')}}bg-yellow-100 text-yellow-800{{/if}}
+                        {{#if (eq encounter.status 'draft')}}bg-gray-100 text-gray-800{{/if}}">
+                        {{encounter.status}}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Encounter Details -->
+            <div class="p-6 space-y-6">
+                <!-- Clinical Information -->
+                {{#if encounter.chiefComplaint}}
+                <div class="border-b pb-6">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Clinical Information</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm mb-2">
+                                <span class="font-medium text-gray-700">Chief Complaint:</span><br>
+                                {{encounter.chiefComplaint}}
+                            </p>
+                        </div>
+                        <div>
+                            {{#if encounter.symptoms}}
+                            <p class="text-sm mb-2">
+                                <span class="font-medium text-gray-700">Symptoms:</span><br>
+                                {{encounter.symptoms}}
+                            </p>
+                            {{/if}}
+                        </div>
+                    </div>
+                    {{#if encounter.diagnosis}}
+                    <div class="mt-3">
+                        {{#each encounter.diagnosis}}
+                        <p class="text-sm mb-1">
+                            <span class="font-medium text-gray-700">{{type}} Diagnosis:</span>
+                            {{code}} - {{description}}
+                        </p>
+                        {{/each}}
+                    </div>
+                    {{/if}}
+                </div>
+                {{/if}}
+
+                <!-- Vital Signs -->
+                {{#if encounter.bloodPressure}}
+                <div class="border-b pb-6">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Vital Signs</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {{#if encounter.bloodPressure}}
+                        <div>
+                            <p class="text-sm">
+                                <span class="font-medium text-gray-700">Blood Pressure:</span><br>
+                                {{encounter.bloodPressure.systolic}}/{{encounter.bloodPressure.diastolic}} mmHg
+                            </p>
+                        </div>
+                        {{/if}}
+                        {{#if encounter.heartRate}}
+                        <div>
+                            <p class="text-sm">
+                                <span class="font-medium text-gray-700">Heart Rate:</span><br>
+                                {{encounter.heartRate}} bpm
+                            </p>
+                        </div>
+                        {{/if}}
+                        {{#if encounter.temperature}}
+                        <div>
+                            <p class="text-sm">
+                                <span class="font-medium text-gray-700">Temperature:</span><br>
+                                {{encounter.temperature}}°C
+                            </p>
+                        </div>
+                        {{/if}}
+                        {{#if encounter.oxygenSaturation}}
+                        <div>
+                            <p class="text-sm">
+                                <span class="font-medium text-gray-700">O2 Saturation:</span><br>
+                                {{encounter.oxygenSaturation}}%
+                            </p>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+                {{/if}}
+
+                <!-- Measurements -->
+                {{#if encounter.height}}
+                <div class="border-b pb-6">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Measurements</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        {{#if encounter.height}}
+                        <p class="text-sm">
+                            <span class="font-medium text-gray-700">Height:</span><br>
+                            {{encounter.height}} cm
+                        </p>
+                        {{/if}}
+                        {{#if encounter.weight}}
+                        <p class="text-sm">
+                            <span class="font-medium text-gray-700">Weight:</span><br>
+                            {{encounter.weight}} kg
+                        </p>
+                        {{/if}}
+                        {{#if encounter.bmi}}
+                        <p class="text-sm">
+                            <span class="font-medium text-gray-700">BMI:</span><br>
+                            {{encounter.bmi}}
+                        </p>
+                        {{/if}}
+                    </div>
+                </div>
+                {{/if}}
+
+                <!-- Lab Results -->
+                {{#if encounter.bloodGlucose}}
+                <div class="border-b pb-6">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Lab Results</h4>
+                    <div class="space-y-3">
+                        {{#if encounter.bloodGlucose}}
+                        <p class="text-sm">
+                            <span class="font-medium text-gray-700">Blood Glucose:</span>
+                            {{encounter.bloodGlucose}} mg/dL
+                        </p>
+                        {{/if}}
+                        {{#if encounter.hba1c}}
+                        <p class="text-sm">
+                            <span class="font-medium text-gray-700">HbA1c:</span>
+                            {{encounter.hba1c}}%
+                        </p>
+                        {{/if}}
+                        {{#if encounter.cholesterol}}
+                        <div class="bg-gray-50 p-3 rounded">
+                            <p class="text-sm font-medium text-gray-700 mb-2">Cholesterol Panel:</p>
+                            <div class="grid grid-cols-2 gap-2">
+                                <p class="text-sm">Total: {{encounter.cholesterol.total}} mg/dL</p>
+                                <p class="text-sm">HDL: {{encounter.cholesterol.hdl}} mg/dL</p>
+                                <p class="text-sm">LDL: {{encounter.cholesterol.ldl}} mg/dL</p>
+                                <p class="text-sm">Triglycerides: {{encounter.cholesterol.triglycerides}} mg/dL</p>
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+                {{/if}}
+
+                <!-- Prescriptions -->
+                {{#if encounter.prescription}}
+                <div class="border-b pb-6">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Prescriptions</h4>
+                    <div class="space-y-3">
+                        {{#each encounter.prescription}}
+                        <div class="bg-gray-50 p-3 rounded">
+                            <p class="text-sm">
+                                <span class="font-semibold">{{medication}}</span><br>
+                                Dosage: {{dosage}}<br>
+                                Frequency: {{frequency}}<br>
+                                Duration: {{duration}}
+                                {{#if instructions}}
+                                <br>
+                                <span class="text-gray-600">Special Instructions: {{instructions}}</span>
+                                {{/if}}
+                            </p>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+                {{/if}}
+
+                <!-- Notes -->
+                {{#if encounter.clinicalNotes}}
+                <div class="border-b pb-6">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-3">Notes</h4>
+                    {{#if encounter.clinicalNotes}}
+                    <div class="mb-4">
+                        <p class="text-sm">
+                            <span class="font-medium text-gray-700">Clinical Notes:</span><br>
+                            {{encounter.clinicalNotes}}
+                        </p>
+                    </div>
+                    {{/if}}
+                    {{#if encounter.recommendations}}
+                    <div>
+                        <p class="text-sm">
+                            <span class="font-medium text-gray-700">Recommendations:</span><br>
+                            {{encounter.recommendations}}
+                        </p>
+                    </div>
+                    {{/if}}
+                </div>
+                {{/if}}
+
+                <!-- Follow-up -->
+                {{#if encounter.followUpDate}}
+                <div class="bg-blue-50 p-4 rounded">
+                    <h4 class="text-lg font-semibold text-gray-700 mb-2">Follow-up Information</h4>
+                    <p class="text-sm">
+                        <span class="font-medium text-gray-700">Follow-up Date:</span>
+                        {{formatDate encounter.followUpDate}}
+                    </p>
+                    {{#if encounter.followUpInstructions}}
+                    <p class="text-sm mt-2">
+                        <span class="font-medium text-gray-700">Instructions:</span>
+                        {{encounter.followUpInstructions}}
+                    </p>
+                    {{/if}}
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

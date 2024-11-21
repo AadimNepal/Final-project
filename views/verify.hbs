@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Email - Health Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h1 class="text-2xl font-bold text-blue-600 mb-6 text-center">Verify Your Email</h1>
+        
+        {{#if error}}
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            {{error}}
+        </div>
+        {{/if}}
+
+        <p class="text-gray-600 mb-4">
+            We've sent a verification code to <strong>{{email}}</strong>.<br>
+            Please check your email and enter the code below.
+        </p>
+
+        <form action="/verify" method="POST" class="space-y-4">
+            <input type="hidden" name="email" value="{{email}}">
+            
+            <div>
+                <label class="block text-gray-700 mb-2">Verification Code:</label>
+                <input type="text" name="code" required 
+                    class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Enter 6-digit code">
+            </div>
+
+            <button type="submit" 
+                class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                Verify Email
+            </button>
+        </form>
+
+        <p class="mt-4 text-sm text-gray-500 text-center">
+            Didn't receive the code? 
+            <a href="/register" class="text-blue-500 hover:text-blue-600">Register again</a>
+        </p>
+    </div>
+</body>
+</html>

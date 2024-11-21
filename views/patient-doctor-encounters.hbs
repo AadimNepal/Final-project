@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Encounters with Dr. {{doctorName}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-4xl mx-auto">
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <a href="/patient-dashboard" class="text-blue-500 hover:text-blue-600">← Back to Dashboard</a>
+                <h1 class="text-3xl font-bold text-blue-600 mt-2">Encounters with Dr. {{doctorName}}</h1>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            {{#if encounters}}
+            <div class="space-y-4">
+                {{#each encounters}}
+                <div class="border rounded-lg p-4 hover:bg-gray-50 transition duration-150">
+                    <a href="/patient-dashboard/encounter/{{_id}}" class="block">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-lg font-medium text-blue-600">Visit on {{formatDate date}}</h3>
+                                {{#if chiefComplaint}}
+                                <p class="text-sm text-gray-600">Reason: {{chiefComplaint}}</p>
+                                {{/if}}
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-sm
+                                {{#if (eq status 'completed')}}bg-green-100 text-green-800{{/if}}
+                                {{#if (eq status 'requires-follow-up')}}bg-yellow-100 text-yellow-800{{/if}}
+                                {{#if (eq status 'draft')}}bg-gray-100 text-gray-800{{/if}}">
+                                {{status}}
+                            </span>
+                        </div>
+                    </a>
+                </div>
+                {{/each}}
+            </div>
+            {{else}}
+            <p class="text-gray-500">No encounters found with this doctor.</p>
+            {{/if}}
+        </div>
+    </div>
+</body>
+</html>
