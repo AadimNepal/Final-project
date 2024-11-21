@@ -3,8 +3,8 @@ import mongoose from 'mongoose';
 import session from 'express-session';
 import dotenv from 'dotenv';
 import hbs from 'hbs';
-import './config.mjs';
-import './utils/hbsHelpers.mjs'; 
+import nconf from './config/index.mjs';  // Change this line
+import './utils/hbsHelpers.mjs';
 
 // Import routes
 import authRoutes from './routes/auth.mjs';
@@ -21,12 +21,10 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'hbs');
 
 // Register helper for comparing values in handlebars
-hbs.registerHelper('eq', function (a, b) {
-    return a === b;
-});
+hbs.registerHelper('eq', (a, b) => a === b);
 
 // MongoDB Connection
-mongoose.connect(process.env.DSN, {
+mongoose.connect(nconf.get('MONGODB:DSN'), {  // Change this line
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
@@ -36,7 +34,7 @@ mongoose.connect(process.env.DSN, {
 // Session Setup
 app.use(
     session({
-        secret: 'secretkey',
+        secret: nconf.get('SESSION_SECRET'),  // Change this line
         resave: false,
         saveUninitialized: true,
     })
@@ -48,5 +46,5 @@ app.use('/doctor-dashboard', doctorRoutes);
 app.use('/patient-dashboard', patientRoutes);
 
 // Start the Server
-const PORT = process.env.PORT || 3000;
+const PORT = nconf.get('PORT');  // Change this line
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

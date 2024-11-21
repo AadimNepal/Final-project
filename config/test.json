@@ -1,0 +1,12 @@
+{
+    "PORT": 22229,
+    "SESSION_SECRET": "test-secret",
+    "MONGODB": {
+      "DSN": "mongodb+srv://at5282:ashok@cluster0.lqvu5.mongodb.net/finalproject-test?retryWrites=true&w=majority&appName=Cluster0"
+    },
+    "EMAIL": {
+      "SERVICE": "gmail",
+      "USER": "an3854@nyu.edu",
+      "PASS": "qqrg aegl ipad uipi"
+    }
+  }
